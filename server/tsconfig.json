@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "target": "ES2022",
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        "outDir": "dist",
+        "sourceMap": true,
+    },
+    "include": [
+        "config/**/*.ts",
+        "controllers/**/*.ts",
+        "models/**/*.ts",
+        "routes/**/*.ts",
+        "services/**/*.ts",
+        "./index.ts",
+    ]
+    
+}

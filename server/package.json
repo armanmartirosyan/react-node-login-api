@@ -1,13 +1,13 @@
 {
   "name": "server",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Node.js server for user authentication.",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "migrate": "npx knex migrate:latest --knexfile ./config/knexfile.js",
-    "rollback": "npx knex migrate:rollback --knexfile ./config/knexfile.js",
-    "dev": "npx nodemon index.js"
+    "migrate": "npx knex migrate:latest --knexfile ./config/knexfile.ts",
+    "rollback": "npx knex migrate:rollback --knexfile ./config/knexfile.ts",
+    "dev": "npx nodemon",
+    "start": "tsc && node ./dist/index.js"
   },
   "author": "Arman Martirosyan",
   "license": "MIT",
@@ -20,6 +20,12 @@
     "mysql2": "^3.9.7"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
