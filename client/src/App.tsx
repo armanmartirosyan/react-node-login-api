@@ -1,12 +1,10 @@
-// import React from "react";
+import React from "react";
 
 function App() {
   return (
-    <>
-      <div>
-		123
-      </div>
-    </>
+    <div>
+      123
+    </div>
   )
 }
 
