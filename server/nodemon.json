@@ -1,13 +1,7 @@
 {
     "watch": [
-        "config/**/*.ts",
-        "config/*.ts",
-        "controllers/**/*.ts",
-        "models/**/*.ts",
-        "routes/**/*.ts",
-        "services/**/*.ts",
-        "./*.ts"
+        "src/**/*.ts"
     ],
     "ext": ".ts,.js",
-    "exec": "ts-node ./index.ts"
+    "exec": "npx tsx ./src/index.ts"
 }
