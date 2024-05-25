@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "migrate": "NODE_OPTIONS='--import=tsx' npx knex migrate:latest --knexfile ./src/config/knexfile.ts ",
-    "rollback": "NODE_OPTIONS='--import=tsx' npx knex migrate:rollback --knexfile ./src/config/knexfile.ts ",
+    "migrate:latest": "NODE_OPTIONS='--import=tsx' npx knex migrate:latest --knexfile ./src/config/knexfile.ts ",
+    "migrate:rollback": "NODE_OPTIONS='--import=tsx' npx knex migrate:rollback --knexfile ./src/config/knexfile.ts ",
+    "migrate:up": "NODE_OPTIONS='--import=tsx' npx knex migrate:up --knexfile ./src/config/knexfile.ts ",
+    "migrate:down": "NODE_OPTIONS='--import=tsx' npx knex migrate:down --knexfile ./src/config/knexfile.ts ",
     "dev": "npx nodemon",
     "build": "npx rimraf ./dist && npx tsc",
     "start": "npm run build && node ./dist/index.js"
@@ -31,9 +33,9 @@
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.12.12",
     "nodemon": "^3.1.0",
-    "ts-node": "^10.9.2",
     "tslib": "^2.6.2",
     "tsx": "^4.11.0",
     "typescript": "^5.4.5"
