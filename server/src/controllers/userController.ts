@@ -1,11 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import userService from "../services/userService.js";
+import { UserTokens } from "src/config/@types/index.js";
 
 class UserController {
-	async registration(req: Request, res: Response, next: NextFunction): Promise<void> {
+	async registration(req: Request, res: Response, next: NextFunction) {
 		try {
-			userService.registration("test@mail.ru", "111");
-			res.send(1);
+			const {email, password}: { email: string, password: string } = req.body;
+			const userData: UserTokens = await userService.registration(email, password);
+			res.cookie("refrshToken", userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+			return res.json(userData);
 		} catch (error) {
 
 		}
