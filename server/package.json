@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "Node.js server for user authentication.",
   "main": "index.js",
   "type": "module",
@@ -25,7 +25,6 @@
     "knex": "^3.1.0",
     "mysql2": "^3.9.7",
     "nodemailer": "^6.9.13",
-    "sequelize": "^6.37.3",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
