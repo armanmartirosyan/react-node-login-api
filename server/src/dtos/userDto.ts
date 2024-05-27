@@ -1,4 +1,4 @@
-import { IUser } from "src/config/@types/index.js";
+import { IUser } from "../config/@types/index.js"
 
 export default class UserDTO {
 	email: string;

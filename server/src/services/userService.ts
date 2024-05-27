@@ -21,9 +21,9 @@ class UserService {
 		const activationLink: string = uuid.v4();
 		const [userId]: number[] = await db<IUser>("users").insert({email, password: hashPassword, activationLink, updated_at});
 		const user: IUser | undefined = await db<IUser>("users").where({ id: userId }).first();
-		
-		// await MailService.sendActivationMail(email, activationLink);
-		
+
+		await MailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
+
 		const userDto = new UserDTO(user!);
 		const tokens: TokenPair = tokenService.generateTokens({ ...userDto });
 
