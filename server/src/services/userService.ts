@@ -5,7 +5,7 @@ import { IUser, IToken, TokenPair, UserTokens } from "../config/@types/index.js"
 import TokenService from "./tokenService.js";
 import UserDTO from "../dtos/userDto.js";
 import db from "../config/knexInitialize.js";
-import APIError from "src/exceptions/apiError.js";
+import APIError from "../exceptions/apiError.js";
 
 class UserService {
 	async registration(email: string, password: string): Promise<UserTokens> {
