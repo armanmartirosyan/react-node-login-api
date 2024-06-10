@@ -1,6 +1,11 @@
+import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 import path from "node:path";
 import { Writable } from "node:stream";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const colors = {
 	reset: "\x1b[0m",
@@ -14,7 +19,7 @@ const colors = {
 
 export function writeToErrorFile(err: Error) {
 	console.log(`${colors.red}Error: Check './logs/error.log' for details.${colors.reset}`);
-	fs.appendFile(path.join("src", "logs", "error.log"), `${new Date().toISOString()}: ${err.stack}\n\n`, (error) => {
+	fs.appendFile(path.join(__dirname, "..", "logs", "error.log"), `${new Date().toISOString()}: ${err.stack}\n\n`, (error) => {
 		if (error)
 			console.error('Error logging to error.log:', error);
 	});
@@ -22,7 +27,7 @@ export function writeToErrorFile(err: Error) {
 
 function createDirectory(): void {
 	try {
-		const folderName = path.join("src", "logs");
+		const folderName = path.join(__dirname, "..", "logs");
 		if (!fs.existsSync(folderName)) {
 			fs.mkdirSync(folderName);
 			console.log("Directory for storing logs created successfully");
@@ -34,7 +39,7 @@ function createDirectory(): void {
 }
 
 function createErrorLogFile(): void {
-	const filePath = path.join("src", "logs", "error.log");
+	const filePath = path.join(__dirname, "..", "logs", "error.log");
 	if (!fs.existsSync(filePath)) {
 		fs.writeFileSync(filePath, "");
 	}
@@ -43,5 +48,5 @@ function createErrorLogFile(): void {
 export default function morganConfig(): Writable  {
 	createDirectory();
 	createErrorLogFile();
-	return fs.createWriteStream(path.join("src", "logs", "server.log"), {flags: "a"})
+	return fs.createWriteStream(path.join(__dirname, "..", "logs", "server.log"), {flags: "a"})
 }
