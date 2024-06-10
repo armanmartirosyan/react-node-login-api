@@ -5,13 +5,14 @@ import { IUser, IToken, TokenPair, UserTokens } from "../config/@types/index.js"
 import TokenService from "./tokenService.js";
 import UserDTO from "../dtos/userDto.js";
 import db from "../config/knexInitialize.js";
+import APIError from "src/exceptions/apiError.js";
 
 class UserService {
 	async registration(email: string, password: string): Promise<UserTokens> {
 		const updated_at: Date = new Date();
 		const condidate: IUser | undefined = await db<IUser>("users").where({ email }).first();
 		if (condidate)
-			throw new Error (`User with this ${email} already exists.`);
+			throw APIError.BadRequest(`User with this ${email} already exists.`);
 
 		const hashPassword: string = await bcrypt.hash(password, 3);
 		const activationLink: string = uuid.v4();
@@ -32,8 +33,8 @@ class UserService {
 	async activate(activationLink: string): Promise<void> {
 		const user: IUser | undefined = await db<IUser>("users").where({ activationLink }).first();
 		if (!user)
-				throw new Error("Incorrect activation link.");
-		user.isActivated = true;
+				throw APIError.BadRequest("Incorrect activation link.");
+		await db<IUser>("users").where({ id: user.id }).update({ isActivated: true });
 	}
 }
 

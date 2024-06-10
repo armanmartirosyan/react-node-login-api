@@ -3,16 +3,20 @@ import UserService from "../services/userService.js";
 import { UserTokens } from "src/config/@types/index.js";
 
 class UserController {
+	userService: UserService;
+
+	constructor() {
+		this.userService = new UserService();
+	}
+
 	async registration(req: Request, res: Response, next: NextFunction) {
 		try {
 			const {email, password}: { email: string, password: string } = req.body;
-			const userService: UserService = new UserService();
-			const userData: UserTokens = await userService.registration(email, password);
+			const userData: UserTokens = await this.userService.registration(email, password);
 			res.cookie("refrshToken", userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
 			return res.json(userData);
 		} catch (error) {
-			if (error instanceof Error)
-				res.status(409).json({ message: error.message });
+			next(error);
 		}
 	}
 
@@ -20,7 +24,7 @@ class UserController {
 		try {
 
 		} catch (error) {
-			
+			next(error);
 		}
 	}
 
@@ -28,13 +32,15 @@ class UserController {
 		try {
 
 		} catch (error) {
-			
+			next(error);
 		}
 	}
 	
 	async activate(req: Request, res: Response, next: NextFunction): Promise<void> {
 		try {
-
+			const activationLink: string = req.params.link;
+			await this.userService.activate(activationLink);
+			return res.redirect(process.env.CLIENT_URL!);
 		} catch (error) {
 			
 		}
@@ -52,9 +58,9 @@ class UserController {
 		try {
 			res.json(["123", "444"]);
 		} catch (error) {
-			
+			next(error);
 		}
 	}
 }
 
-export default new UserController();
+export default UserController;
