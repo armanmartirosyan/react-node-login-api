@@ -1,10 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express, { Express, Request, Response, NextFunction} from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
 import router from "./routes/routes.js";
+import knex from "./config/knexInitialize.js";
 
-dotenv.config();
 
 const app: Express = express();
 const PORT: number = Number(process.env.PORT) || 5000;
@@ -26,3 +27,9 @@ async function start(): Promise<void> {
 };
 
 start();
+
+process.on("SIGINT", async (): Promise<void> => {
+    console.log("Recieved SIGINT signal. Gracefully shutting down...");
+    await knex.destroy();
+    process.exit();
+});
