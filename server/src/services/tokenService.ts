@@ -13,9 +13,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
-dotenv.config({path: path.resolve(__dirname, "../../.env")});
-
-
 class TokenService {
 	generateTokens(payload: JwtPayload): TokenPair {
 		const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET!, {expiresIn: "30m"});
