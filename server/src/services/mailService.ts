@@ -18,20 +18,24 @@ class MailService {
 	}
 
 	async sendActivationMail(to: string, link: string): Promise<void> {
-		await this.transporter.sendMail({
-			from: process.env.SMTP_USERNAME,
-			to,
-			subject: "Account activation" + process.env.API_URL,
-			text: "",
-			html:
-				`
-					<div>
-						<h1>To activate please follow the link below.</h1>
-						<a href="${link}">${link}</a>
-					<div>
-				`
-		});
+		try {
+			await this.transporter.sendMail({
+			  from: process.env.SMTP_USERNAME,
+			  to,
+			  subject: "Account activation",
+			  text: `To activate please follow the link below: ${link}`,
+			  html: `
+				<div>
+				  <h1>To activate please follow the link below.</h1>
+				  <a href="${link}">${link}</a>
+				</div>
+			  `
+			});
+		  } catch (error) {
+			console.error("Error sending activation email:", error);
+				throw new Error("Failed to send activation email.");
+		  }
+		}
 	}
-}
 
-export default new MailService();
+export default MailService;
