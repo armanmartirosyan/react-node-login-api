@@ -14,7 +14,7 @@ const config : Knex.Config = {
       host: process.env.MYSQL_HOST || 'localhost',
       user: process.env.MYSQL_USER || 'root',
       password: process.env.MYSQL_PASS || 'root',
-      database: process.env.MYSQL_DATABASE || '',
+      database: process.env.MYSQL_DATABASE || 'UserLoginAPI',
     },
     migrations: {
       directory: path.join(__dirname, '..', 'config', 'db', 'migrations'),
