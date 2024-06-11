@@ -1,5 +1,6 @@
 import nodeMailer, { Transporter } from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport/index.js";
+import MailError from "../exceptions/mailError.js";
 
 class MailService {
 	transporter: nodeMailer.Transporter<SMTPTransport.SentMessageInfo>;
@@ -32,8 +33,7 @@ class MailService {
 			  `
 			});
 		  } catch (error) {
-			console.error("Error sending activation email:", error);
-				throw new Error("Failed to send activation email.");
+			throw MailError.ActivationMailError(error);
 		  }
 		}
 	}

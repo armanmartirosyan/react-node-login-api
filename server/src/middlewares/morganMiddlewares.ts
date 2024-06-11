@@ -17,8 +17,8 @@ const colors = {
 	cyan: "\x1b[36m",
 };
 
-export function writeToErrorFile(err: Error) {
-	console.log(`${colors.red}Error: Check './logs/error.log' for details.${colors.reset}`);
+export function writeToErrorFile(err: Error, info: string) {
+	console.log(`${colors.red}${info}: Check './logs/error.log' for details.${colors.reset}`);
 	fs.appendFile(path.join(__dirname, "..", "logs", "error.log"), `${new Date().toISOString()}: ${err.stack}\n\n`, (error) => {
 		if (error)
 			console.error('Error logging to error.log:', error);
