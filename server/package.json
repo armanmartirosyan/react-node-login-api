@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "Node.js server for user authentication.",
   "main": "index.js",
   "type": "module",
@@ -11,7 +11,8 @@
     "migrate:down": "NODE_OPTIONS='--import=tsx' npx knex migrate:down --knexfile ./src/config/knexfile.ts ",
     "dev": "npx nodemon",
     "build": "npx rimraf ./dist && npx tsc",
-    "start": "npm run build && node ./dist/index.js"
+    "start": "npm run build && node ./dist/index.js",
+    "clean": "npx rimraf ./dist ./src/logs"
   },
   "author": "Arman Martirosyan",
   "license": "MIT",
