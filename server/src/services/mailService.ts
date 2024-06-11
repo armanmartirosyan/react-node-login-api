@@ -1,4 +1,4 @@
-import nodeMailer, { Transporter } from "nodemailer";
+import nodeMailer from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport/index.js";
 import MailError from "../exceptions/mailError.js";
 

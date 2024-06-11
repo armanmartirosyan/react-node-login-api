@@ -1,17 +1,9 @@
-import path from "node:path";
-import dotenv from "dotenv";
-import { dirname } from 'path';
 import knex, { Knex } from "knex";
-import { fileURLToPath } from 'url';
+import jwt, { JwtPayload } from "jsonwebtoken";
 import knexConfig from "../config/knexfile.js";
-import jwt, { JwtPayload, Secret } from "jsonwebtoken";
-import { IToken, TokenPair } from "src/config/@types/index.d.js";
+import { IToken, TokenPair } from "../config/@types/index.d.js";
 
 const db: Knex = knex<IToken>(knexConfig);
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 
 class TokenService {
 	generateTokens(payload: JwtPayload): TokenPair {

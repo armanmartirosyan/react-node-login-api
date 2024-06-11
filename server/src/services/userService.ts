@@ -8,6 +8,14 @@ import db from "../config/knexInitialize.js";
 import APIError from "../exceptions/apiError.js";
 
 class UserService {
+	tokenService: TokenService;
+	mailService: MailService;
+
+	constructor() {
+		this.tokenService = new TokenService();
+		this.mailService = new MailService();
+	}
+
 	async registration(email: string, password: string): Promise<UserTokens> {
 		const updated_at: Date = new Date();
 		const condidate: IUser | undefined = await db<IUser>("users").where({ email }).first();
@@ -19,14 +27,12 @@ class UserService {
 		const [userId]: number[] = await db<IUser>("users").insert({email, password: hashPassword, activationLink, updated_at});
 		const user: IUser | undefined = await db<IUser>("users").where({ id: userId }).first();
 
-		const mailService: MailService = new MailService();
-		await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
+		await this.mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
 
 		const userDto = new UserDTO(user!);
-		const tokenService: TokenService = new TokenService();
-		const tokens: TokenPair = tokenService.generateTokens({ ...userDto });
+		const tokens: TokenPair = this.tokenService.generateTokens({ ...userDto });
 
-		await tokenService.saveToken(userDto.id, tokens.refreshToken);
+		await this.tokenService.saveToken(userDto.id, tokens.refreshToken);
 		return {user: userDto, ...tokens};
 	}
 
@@ -35,6 +41,22 @@ class UserService {
 		if (!user)
 				throw APIError.BadRequest("Incorrect activation link.");
 		await db<IUser>("users").where({ id: user.id }).update({ isActivated: true });
+	}
+
+	async login(email: string, password: string): Promise<UserTokens> {
+		const user: IUser | undefined = await db<IUser>("users").where({ email }).first();
+		if (!user)
+			throw APIError.BadRequest("Invalid email or password.");
+
+		const passwordMatch: boolean = await bcrypt.compare(password, user.password);
+		if (!passwordMatch)
+				throw APIError.BadRequest("Invalid email or password.");
+
+		const userDto = new UserDTO(user);
+		const tokens: TokenPair = this.tokenService.generateTokens({ ...userDto });
+		await this.tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+		return {user: userDto, ...tokens};
 	}
 }
 
