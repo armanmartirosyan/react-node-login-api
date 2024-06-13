@@ -10,7 +10,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install -g npm@10.8.1
+RUN npm install -g npm@latest
 RUN npm install && npm run build
 
 RUN mv /app/dist/*  /usr/share/nginx/html
