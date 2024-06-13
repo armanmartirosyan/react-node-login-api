@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    nginx:
+        container_name: nginx
+        build: "./client/"
+        ports:
+            - "8080:80"
+        networks:
+            - inception
+        restart: always
+    portainer:
+        container_name: portainer
+        image: portainer/portainer
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - portainer_data:/data
+        ports:
+            - "9443:9443"
+        networks:
+            - inception
+        restart: always
+
+volumes:
+    portainer_data:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/localgis/login-api/volume/portainer
+            o: bind
+
+networks:
+    inception:
+        name: inception
+        driver: "bridge"

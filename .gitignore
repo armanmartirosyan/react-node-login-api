@@ -1,0 +1,8 @@
+.env
+
+volume/portainer/portainer*
+volume/portainer/bin/
+volume/portainer/certs/
+volume/portainer/compose/
+volume/portainer/docker_config
+volume/portainer/tls

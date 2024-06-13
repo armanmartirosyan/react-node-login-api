@@ -10,6 +10,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN cat ./conf/nginx.conf > /etc/nginx/conf.d/default.conf
+
 RUN npm install -g npm@latest
 RUN npm install && npm run build
 
@@ -17,6 +19,6 @@ RUN mv /app/dist/*  /usr/share/nginx/html
 
 WORKDIR /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
