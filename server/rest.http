@@ -1,0 +1,36 @@
+### Registration Request
+POST http://localhost:5000/api/registration HTTP/1.1
+Host: localhost
+Content-Type: application/json
+
+{
+	"email": "armanmartirosyan81@gmail.com",
+	"password": "1234"
+}
+
+### Login Request
+POST http://localhost:5000/api/login HTTP/1.1
+Host: localhost
+Content-Type: application/json
+
+{
+	"email": "armanmartirosyan81@gmail.com",
+	"password": "1234"
+}
+
+### Refresh Request
+GET http://localhost:5000/api/refresh HTTP/1.1
+Host: localhost
+Content-Type: application/json
+
+
+### Logout Request
+POST http://localhost:5000/api/logout HTTP/1.1
+Host: localhost
+Content-Type: application/json
+
+
+### Get Users Request
+GET http://localhost:5000/api/users HTTP/1.1
+Host: localhost
+Content-Type: application/json
