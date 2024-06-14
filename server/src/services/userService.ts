@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import * as uuid from "uuid";
 import MailService from "./mailService.js";
-import { IUser, IToken, TokenPair, UserTokens } from "../config/@types/index.js";
+import { IUser, VerifiedJWT, TokenPair, UserTokens, IToken } from "../config/@types/index.js";
 import TokenService from "./tokenService.js";
 import UserDTO from "../dtos/userDto.js";
 import db from "../config/knexInitialize.js";
@@ -57,6 +57,41 @@ class UserService {
 		await this.tokenService.saveToken(userDto.id, tokens.refreshToken);
 
 		return {user: userDto, ...tokens};
+	}
+
+	async logout(refreshToken: string): Promise<number | undefined> {
+		const token: number | undefined = await this.tokenService.removeToken(refreshToken);
+		return token;
+	}
+
+	async refresh(refreshToken: string): Promise<UserTokens> {
+		if (!refreshToken)
+			throw APIError.UnauthorizedError();
+		const userData: VerifiedJWT = this.tokenService.validateRefreshToken(refreshToken);
+		const isTokenInDB: IToken | undefined = await this.tokenService.findToken(refreshToken);
+		if (!userData || !isTokenInDB)
+				throw APIError.UnauthorizedError();
+
+		const user: IUser | undefined = await db<IUser>("users").where({ id: userData.id }).first();
+		if (!user)
+				throw APIError.UnauthorizedError();
+		const userDto = new UserDTO(user);
+		const tokens: TokenPair = this.tokenService.generateTokens({ ...userDto });
+		await this.tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+		return {user: userDto, ...tokens};
+	}
+
+	async getAllUsers(): Promise<UserDTO[]> {
+		const users: IUser[] = await db<IUser>("users").select("*");
+		const usersDTO: UserDTO[] = [];
+
+		users.forEach((user: IUser) => {
+			const userDto: UserDTO = new UserDTO(user);
+			usersDTO.push(userDto);
+		});
+	
+		return usersDTO;
 	}
 }
 

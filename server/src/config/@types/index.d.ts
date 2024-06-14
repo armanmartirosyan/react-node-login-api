@@ -32,3 +32,5 @@ export interface UserCredentials {
     email: string;
     password: string;
 }
+
+export type VerifiedJWT = string | jwt.JwtPayload | null;

@@ -4,7 +4,7 @@ Host: localhost
 Content-Type: application/json
 
 {
-	"email": "armanmartirosyan81@gmail.com",
+	"email": "fantom.assasinnnn@mail.ru",
 	"password": "1234"
 }
 
@@ -34,3 +34,4 @@ Content-Type: application/json
 GET http://localhost:5000/api/users HTTP/1.1
 Host: localhost
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFybWFubWFydGlyb3N5YW44MUBnbWFpbC5jb20iLCJpZCI6NCwiaXNBY3RpdmF0ZWQiOjEsImlhdCI6MTcxODM2OTA2NiwiZXhwIjoxNzE4MzY5MDk2fQ.FXYGR-G_Lqw1_80ArDPQC1H50ATWuxXXzkrfWBVVpZ8

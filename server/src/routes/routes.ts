@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { body } from "express-validator";
 import UserController from "../controllers/userController.js";
+import authMiddlewares from "../middlewares/authMiddlewares.js";
 
 const router: Router = Router();
 const userController = new UserController();
@@ -18,6 +19,7 @@ router.post("/login",
 router.post("/logout", userController.logout.bind(userController));
 router.get("/activate/:link", userController.activate.bind(userController));
 router.get("/refresh", userController.refresh.bind(userController));
-router.get("/users", userController.getUsers.bind(userController));
+router.get("/users", authMiddlewares, userController.getUsers.bind(userController));
+
 
 export default router;
