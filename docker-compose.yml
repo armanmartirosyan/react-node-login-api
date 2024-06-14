@@ -1,4 +1,15 @@
 services:
+    node:
+        container_name: node_api_c
+        build: "./server/"
+        ports:
+          - "5000:5000"
+        env_file:
+            - ./server/.env
+        networks:
+            - inception
+        restart: always
+
     nginx:
         container_name: nginx
         build: "./client/"

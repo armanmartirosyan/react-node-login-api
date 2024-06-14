@@ -28,6 +28,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^3.9.7",
     "nodemailer": "^6.9.13",
+    "rimraf": "^5.0.7",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
