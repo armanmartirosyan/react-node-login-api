@@ -6,3 +6,16 @@ volume/portainer/certs/
 volume/portainer/compose/
 volume/portainer/docker_config
 volume/portainer/tls
+
+volume/mysql/*.pem
+volume/mysql/ib*
+volume/mysql/mysql*
+volume/mysql/undo*
+volume/mysql/binlog*
+volume/mysql/auto.cnf
+volume/mysql/#ib*
+volume/mysql/#innodb_temp/
+volume/mysql/sys/
+volume/mysql/#innodb_redo/
+volume/mysql/performance_schema/
+volume/mysql/UserLoginAPI/

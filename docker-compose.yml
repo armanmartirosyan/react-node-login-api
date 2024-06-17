@@ -8,9 +8,11 @@ services:
             - ./server/.env
         networks:
             - inception
+        depends_on:
+            - mysql
         restart: always
     nginx:
-        container_name: nginx
+        container_name: nginx_c
         build: "./client/"
         ports:
             - "80:80"
@@ -18,7 +20,7 @@ services:
             - inception
         restart: always
     portainer:
-        container_name: portainer
+        container_name: portainer_c
         image: portainer/portainer
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
@@ -28,13 +30,33 @@ services:
         networks:
             - inception
         restart: always
+    mysql:
+        container_name: mysql_c
+        image: mysql:8
+        env_file:
+            - ./server/.env
+        ports:
+          - "3306:3306"
+        networks:
+            - inception
+        volumes:
+          - mysql_data:/var/lib/mysql
+        restart: always
 
 volumes:
     portainer_data:
+        name: portainer
         driver: local
         driver_opts:
             type: none
             device: ./volume/portainer
+            o: bind
+    mysql_data:
+        name: mysql
+        driver: local
+        driver_opts:
+            type: node
+            device: ./volume/mysql
             o: bind
 
 networks:
