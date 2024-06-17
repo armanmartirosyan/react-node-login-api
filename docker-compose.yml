@@ -9,12 +9,11 @@ services:
         networks:
             - inception
         restart: always
-
     nginx:
         container_name: nginx
         build: "./client/"
         ports:
-            - "8080:80"
+            - "80:80"
         networks:
             - inception
         restart: always
