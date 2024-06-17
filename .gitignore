@@ -13,7 +13,7 @@ volume/mysql/mysql*
 volume/mysql/undo*
 volume/mysql/binlog*
 volume/mysql/auto.cnf
-volume/mysql/#ib*
+volume/mysql/#ib_*
 volume/mysql/#innodb_temp/
 volume/mysql/sys/
 volume/mysql/#innodb_redo/
