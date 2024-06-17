@@ -1,9 +1,5 @@
 -- init.sql
 
-CREATE DATABASE IF NOT EXISTS UserLoginAPI;
-
--- Use the database
-USE UserLoginAPI;
 
 -- Table: user_tokens
 CREATE TABLE IF NOT EXISTS tokens (
