@@ -7,7 +7,7 @@ services:
         env_file:
             - ./server/.env
         networks:
-            - inception
+            - initiation
         depends_on:
             - mysql
         restart: always
@@ -17,7 +17,7 @@ services:
         ports:
             - "80:80"
         networks:
-            - inception
+            - initiation
         restart: always
     portainer:
         container_name: portainer_c
@@ -28,17 +28,17 @@ services:
         ports:
             - "9443:9443"
         networks:
-            - inception
+            - initiation
         restart: always
     mysql:
         container_name: mysql_c
-        image: mysql:8
+        build: "./mysql/"
         env_file:
             - ./server/.env
         ports:
           - "3306:3306"
         networks:
-            - inception
+            - initiation
         volumes:
           - mysql_data:/var/lib/mysql
         restart: always
@@ -60,6 +60,6 @@ volumes:
             o: bind
 
 networks:
-    inception:
-        name: inception
+    initiation:
+        name: initiation
         driver: "bridge"

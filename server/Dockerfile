@@ -5,10 +5,9 @@ WORKDIR /app
 COPY . .
 
 RUN npm install
-RUN npm run migrate:latest
 RUN npm run build
 
-RUN rm -rf ./src tsconfig.json .env
+RUN rm -rf ./src tsconfig.json
 
 RUN npm prune --production
 
