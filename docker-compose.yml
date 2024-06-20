@@ -14,6 +14,8 @@ services:
     nginx:
         container_name: nginx_c
         build: "./client/"
+        env_file:
+            - ./client/.env 
         ports:
             - "80:80"
         networks:
