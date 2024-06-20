@@ -16,7 +16,10 @@ const PORT: number = Number(process.env.PORT) || 5000;
 app.use(morgan("common", { stream: morganConfig()}));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors( {
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+}));
 app.use("/api", router);
 app.use(errorMiddlewares);
 
