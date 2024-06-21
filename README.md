@@ -125,6 +125,13 @@ If you prefer using Docker for a simplified setup, follow these steps:
 
 This usage guide outlines the primary functionalities of the User Authorization application, focusing on user registration, authentication, email verification, and accessing user information.
 
+### Accessing Portainer
+
+1. **Portainer Dashboard:**
+   - If you are using Docker, you can manage Docker containers by accessing Portainer's web interface.
+   - Open a web browser and go to `http://localhost/portainer`.
+   - Log in to Portainer if required, and manage your Docker containers as needed.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
