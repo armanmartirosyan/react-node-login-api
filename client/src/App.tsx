@@ -34,7 +34,7 @@ const App: FC = () => {
     return (
       <div>
           <LoginForm/>
-          <button onClick={getUsers}>Получить пользователей</button>
+          <button onClick={getUsers}>Get all users</button>
       </div>
   );
   }
